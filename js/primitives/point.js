@@ -13,6 +13,16 @@ class Point {
     }
 
     /**
+     * Checks if the current point is equal to another point.
+     * @param {Point} point - The Point instance to compare against.
+     * @returns {boolean} - True if the points have the same coordinates, false otherwise.
+     */
+    equals(point) {
+        return this.x === point.x && this.y === point.y;
+    }
+
+
+    /**
      * Draws a filled circle representing the Point on the canvas.
      * @param {CanvasRenderingContext2D} ctx - The 2D rendering context of the canvas.
      * @param {number} [size=18] - The size of the circle (diameter).

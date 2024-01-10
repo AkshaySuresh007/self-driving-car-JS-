@@ -13,6 +13,26 @@ class Segment {
     }
 
     /**
+     * Checks if the current segment is equal to another segment, considering both directions.
+     * @param {Segment} seg - The Segment instance to compare with the current segment.
+     * @returns {boolean} - Returns true if the segments are equal, considering both directions; false otherwise.
+     */
+    equals(seg) {
+        // Check if the endpoints of the current segment are equal to the endpoints of the provided segment in either direction
+        return this.includes(seg.p1) && this.includes(seg.p2);
+    }
+
+    /**
+     * Checks if the current segment includes a specified point.
+     * @param {Point} point - The Point instance to check for inclusion in the segment.
+     * @returns {boolean} - Returns true if the segment includes the specified point; false otherwise.
+     */
+    includes(point) {
+        // Check if the specified point is equal to either endpoint of the current segment
+        return this.p1.equals(point) || this.p2.equals(point);
+    }
+
+    /**
      * Draws the segment on the canvas.
      * @param {CanvasRenderingContext2D} ctx - The 2D rendering context of the canvas.
      * @param {number} [width=2] - The width of the line segment.

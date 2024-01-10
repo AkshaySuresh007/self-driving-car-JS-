@@ -50,6 +50,42 @@ class Graph {
     }
 
     /**
+     * Adds a segment to the graph.
+     * @param {Segment} seg - The Segment instance to be added to the graph.
+     */
+    addSegment(seg) {
+        // Push the provided segment to the list of segments in the graph
+        this.segments.push(seg);
+    }
+
+    /**
+     * Checks if the graph contains a specific segment.
+     * @param {Segment} seg - The Segment instance to check for in the graph.
+     * @returns {Segment|null} - The matching Segment instance if found, or null if not found.
+     */
+    containsSegment(seg) {
+        // Use the find method to check if any segment in the graph is equal to the provided segment
+        return this.segments.find((s) => s.equals(seg));
+    }
+
+    /**
+     * Attempts to add a segment to the graph if it is not already present.
+     * @param {Segment} seg - The Segment instance to attempt to add to the graph.
+     * @returns {boolean} - Returns true if the segment was added successfully, false if it was already present or invalid.
+     */
+    tryAddSegment(seg) {
+        // Check if the graph does not already contain the given segment and the segment is not degenerate (p1 equals p2)
+        if (!this.containsSegment(seg) && !seg.p1.equals(seg.p2)) {
+            // If the segment is not present and not degenerate, add it to the graph
+            this.addSegment(seg);
+            // Return true to indicate that the segment was added successfully
+            return true;
+        }
+        // Return false as the segment was either already present or degenerate
+        return false;
+    }
+
+    /**
      * Draws the graph on the canvas by rendering its segments and points.
      * @param {CanvasRenderingContext2D} ctx - The 2D rendering context of the canvas.
      */

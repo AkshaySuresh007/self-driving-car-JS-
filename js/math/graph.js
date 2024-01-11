@@ -50,11 +50,15 @@ class Graph {
     }
 
     /**
-     * Removes a specified segment from the graph.
-     * @param {Segment} seg - The Segment instance to be removed from the graph.
+     * Removes a specified point from the graph.
+     * @param {Point} seg - The Point instance to be removed from the graph.
      */
-    removeSegment(seg) {
-        this.segments.splice(this.segments.indexOf(seg), 1);
+    removePoint(point) {
+        const segs = this.getSegmentsWithPoint(point);
+        for (const seg of segs) {
+            this.removeSegment(seg);
+        }
+        this.points.splice(this.points.indexOf(point), 1);
     }
 
     /**
@@ -91,6 +95,39 @@ class Graph {
         }
         // Return false as the segment was either already present or degenerate
         return false;
+    }
+
+    /**
+     * Removes a specified segment from the graph.
+     * @param {Segment} seg - The Segment instance to be removed from the graph.
+     */
+    removeSegment(seg) {
+        this.segments.splice(this.segments.indexOf(seg), 1);
+    }
+
+    /**
+     * Retrieves an array of segments from the graph that include the specified point.
+     * @param {Point} point - The Point instance to find in segments.
+     * @returns {Array<Segment>} segs - An array of segments containing the specified point.
+     */
+    getSegmentsWithPoint(point) {
+        const segs = [];
+        for (const seg of this.segments) {
+            // Check if the segment includes the specified point
+            if (seg.includes(point)) {
+                segs.push(seg);
+            }
+        }
+        return segs;
+    }
+
+    /**
+     * Disposes of the graph by removing all points and segments.
+     * This method clears both the points and segments arrays.
+     */
+    dispose() {
+        this.points.length = 0;
+        this.segments.length = 0;
     }
 
     /**

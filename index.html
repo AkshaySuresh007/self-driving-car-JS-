@@ -17,6 +17,8 @@
         <button onclick="addRandomPoint()">Add Point</button>
         <button onclick="addRandomSegment()">Add Segment</button>
         <button onclick="removeRandomSegment()">Remove Segment</button>
+        <button onclick="removeRandomPoint()">Remove Point</button>
+        <button onclick="removeAll()">Remove All</button>
     </div>
 
     <script src="js/math/graph.js"></script>
@@ -24,8 +26,25 @@
     <script src="js/primitives/segment.js"></script>
     <script>
 
+        const removeAll = () => {
+            graph.dispose();
+            ctx.clearRect(0, 0, myCanvas.width, myCanvas.height);
+            graph.draw(ctx);
+        }
+
+        const removeRandomPoint = () => {
+            if (graph.points.length == 0) {
+                console.log("no points");
+                return
+            }
+            const index = Math.floor(Math.random() * graph.points.length);
+            graph.removePoint(graph.points[index])
+            ctx.clearRect(0, 0, myCanvas.width, myCanvas.height);
+            graph.draw(ctx);
+        }
+
         const removeRandomSegment = () => {
-            if(graph.segments.length == 0){
+            if (graph.segments.length == 0) {
                 console.log("no segments");
                 return
             }

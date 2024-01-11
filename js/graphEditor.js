@@ -41,7 +41,7 @@ class GraphEditor {
             if (evt.button === 0) { // left click
                 // Create a Point instance representing the mouse coordinates
                 const mouse = new Point(evt.offsetX, evt.offsetY);
-                // If a hovered point is found, update the selected point and return
+                // If a hovered point is found, update the selected point and set dragging state to true
                 if (this.hovered) {
                     this.selected = this.hovered;
                     this.dragging = true;
@@ -59,13 +59,15 @@ class GraphEditor {
             const mouse = new Point(evt.offsetX, evt.offsetY);
             // Update the hovered point based on the nearest point to the mouse coordinates within a threshold of 15 pixels
             this.hovered = getNearestPoint(mouse, this.graph.points, 15);
-            if (this.dragging == true) {
+            // If dragging is true, update the selected point's coordinates to match the mouse coordinates
+            if (this.dragging) {
                 this.selected.x = mouse.x;
                 this.selected.y = mouse.y;
             }
         });
         // Prevent the default context menu on right-click
         this.canvas.addEventListener("contextmenu", (evt) => evt.preventDefault());
+        // Listen for mouseup events on the canvas to reset dragging state
         this.canvas.addEventListener("mouseup", () => this.dragging = false);
     }
 

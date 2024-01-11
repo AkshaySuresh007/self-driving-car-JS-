@@ -50,6 +50,14 @@ class Graph {
     }
 
     /**
+     * Removes a specified segment from the graph.
+     * @param {Segment} seg - The Segment instance to be removed from the graph.
+     */
+    removeSegment(seg) {
+        this.segments.splice(this.segments.indexOf(seg), 1);
+    }
+
+    /**
      * Adds a segment to the graph.
      * @param {Segment} seg - The Segment instance to be added to the graph.
      */

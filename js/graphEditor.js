@@ -16,6 +16,7 @@ class GraphEditor {
 
         this.selected = null;
         this.hovered = null;
+        this.dragging = false;
 
         this.ctx = this.canvas.getContext('2d');
 
@@ -43,6 +44,7 @@ class GraphEditor {
                 // If a hovered point is found, update the selected point and return
                 if (this.hovered) {
                     this.selected = this.hovered;
+                    this.dragging = true;
                     return;
                 }
                 // If no hovered point is found, add the mouse point to the graph and set it as the selected point
@@ -57,9 +59,14 @@ class GraphEditor {
             const mouse = new Point(evt.offsetX, evt.offsetY);
             // Update the hovered point based on the nearest point to the mouse coordinates within a threshold of 15 pixels
             this.hovered = getNearestPoint(mouse, this.graph.points, 15);
+            if (this.dragging == true) {
+                this.selected.x = mouse.x;
+                this.selected.y = mouse.y;
+            }
         });
         // Prevent the default context menu on right-click
         this.canvas.addEventListener("contextmenu", (evt) => evt.preventDefault());
+        this.canvas.addEventListener("mouseup", () => this.dragging = false);
     }
 
     #removePoint(point) {
